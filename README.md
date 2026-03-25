@@ -9,6 +9,8 @@ Group devices by child or category, then block or unblock their internet access 
 ## Features
 
 - **Device groups** — organise devices by child, room, or any label you choose
+- **UniFi group sync** — groups are loaded directly from your UniFi controller's Client Groups; create, rename, and delete groups from the app
+- **Local & UniFi groups** — create groups stored only on the device or backed by the UniFi controller (shown with a "UniFi" / "Local" badge)
 - **One-tap block / unblock** — cut or restore internet access for an entire group at once
 - **Per-device control** — block or unblock individual devices within a group independently
 - **Live status** — real-time connection status synced from the controller
@@ -67,6 +69,15 @@ Group devices by child or category, then block or unblock their internet access 
 ---
 
 ## Releases
+
+### v1.2.0 — 2026-03-25
+
+- **UniFi Client Group sync** — groups are now loaded directly from the UniFi controller's modern Client Groups API (`network-members-groups`). Groups created in the UniFi UI (e.g. "Julian", "Tobias") appear automatically in the app after connecting
+- **Create groups on the controller** — when creating a new group, choose "Save to UniFi" to create a matching Client Group on the controller; or leave it off for a local-only group
+- **Local / UniFi badge** — each group card shows a "UniFi" or "Local" badge so you can tell at a glance whether it is synced to the controller
+- **Add devices to groups** — adding a device to a UniFi-backed group now updates the device's group assignment on the controller via the user record API (the same approach used by the UniFi web UI)
+- **Auto-login on credential change** — the app now automatically connects to the controller whenever credentials are saved in Settings, without requiring a manual pull-to-refresh
+- **Sync error feedback** — pull-to-refresh now shows a red snackbar with the exact error message if the sync with the controller fails
 
 ### v1.1.0 — 2026-03-25
 
