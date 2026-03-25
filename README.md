@@ -70,6 +70,10 @@ Group devices by child or category, then block or unblock their internet access 
 
 ## Releases
 
+### v1.2.2 — 2026-03-25
+
+- **Source-aware group icons** — the icon on each group card now reflects the group's source: a router icon for UniFi-controlled groups and a computer icon for locally managed groups, replacing the generic Wi-Fi icon
+
 ### v1.2.1 — 2026-03-25
 
 - **Fixed auto-update permission dialog** — the "Install unknown apps" permission window was never shown because the `REQUEST_INSTALL_PACKAGES` permission was missing from the Android manifest; this is now declared correctly so Android 8.0+ presents the system permission screen as expected
