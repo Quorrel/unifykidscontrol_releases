@@ -15,6 +15,7 @@ Group devices by child or category, then block or unblock their internet access 
 - **Per-device control** — block or unblock individual devices within a group independently
 - **Live status** — real-time connection status synced from the controller
 - **WLAN MAC filter** — manage wireless MAC allow/block lists directly from the app
+- **WLAN blackout schedule** — define per-WLAN time windows when Wi-Fi is automatically switched off, with 30-minute granularity and a day × hour grid
 - **Group images** — assign a photo from your gallery to each group for quick identification
 - **Persistent storage** — groups and credentials are saved locally using Hive; no cloud account needed
 - **Self-hosted controller** — connects directly to your own Unifi controller over your local network
@@ -65,10 +66,18 @@ Group devices by child or category, then block or unblock their internet access 
 | Rename / edit a group | Open the group → tap the edit icon |
 | Delete a group | Open the group → tap the delete icon |
 | Manage WLAN filter | Tap the Wi-Fi icon in the dashboard toolbar |
+| Manage WLAN schedule | Tap the clock icon in the dashboard toolbar |
+| Set blackout hours | Select a WLAN → enable schedule → tap cells (red = off, light = on) |
+| Toggle a full day/hour | Tap a day label (left) or an hour header (top) in the schedule grid |
 
 ---
 
 ## Releases
+
+### v1.3.0 — 2026-03-25
+
+- **WLAN blackout schedule** — new clock icon in the dashboard toolbar opens a dedicated schedule page. Select any WLAN and draw blackout windows on a 7-day × 24-hour grid with 30-minute granularity. Red cells mark hours when the WLAN is automatically disabled. Tap a day label to toggle an entire day; tap an hour header to toggle that hour across all days. The schedule is saved to the UniFi controller via the `schedule_with_duration` API and is fully independent from the MAC filter page
+- **Separate save flows** — MAC filter and schedule are now managed on separate pages, each with its own Save button, so changes to one cannot accidentally affect the other
 
 ### v1.2.2 — 2026-03-25
 
