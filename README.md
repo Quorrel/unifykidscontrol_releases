@@ -70,6 +70,12 @@ Group devices by child or category, then block or unblock their internet access 
 
 ## Releases
 
+### v1.2.1 — 2026-03-25
+
+- **Fixed auto-update permission dialog** — the "Install unknown apps" permission window was never shown because the `REQUEST_INSTALL_PACKAGES` permission was missing from the Android manifest; this is now declared correctly so Android 8.0+ presents the system permission screen as expected
+- **Install error feedback** — when the system rejects the install (e.g. permission not yet granted), the update dialog now shows a clear message with step-by-step instructions to grant the permission in Settings and retry
+- **Visible install failures** — the result of the APK install intent is now checked and surfaced in the UI instead of being silently ignored
+
 ### v1.2.0 — 2026-03-25
 
 - **UniFi Client Group sync** — groups are now loaded directly from the UniFi controller's modern Client Groups API (`network-members-groups`). Groups created in the UniFi UI (e.g. "Julian", "Tobias") appear automatically in the app after connecting
@@ -102,7 +108,7 @@ Because this app is distributed outside the Play Store, Android requires you to 
 2. Open the file — Android may ask you to grant **"Install unknown apps"** permission for your browser or file manager.
 3. Grant the permission, then tap **Install**.
 
-If you use the in-app auto-update, the same permission prompt may appear — grant it and tap **Install** again in the dialog.
+If you use the in-app auto-update, the system permission screen will appear automatically — grant it and tap **INSTALL** again in the app dialog. If the permission is denied, the dialog shows step-by-step guidance to enable it in Settings.
 
 ---
 
