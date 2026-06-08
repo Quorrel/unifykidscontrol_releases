@@ -74,6 +74,44 @@ Group devices by child or category, then block or unblock their internet access 
 
 ## Releases
 
+### v1.3.6 — 2026-06-08
+
+- **Fixed CI build failure (JVM target mismatch + toolchain upgrades)** — upgraded AGP from 8.9.1 to 8.11.1, Gradle wrapper from 8.11.1 to 8.14.1, and aligned Java compiler target to VERSION_21 to match Flutter's Built-in Kotlin JVM target when running on JDK 21
+
+### v1.3.5 — 2026-06-08
+
+- **Fixed CI build failure** — upgraded Gradle wrapper from 8.9 to 8.11.1, which is the minimum required by AGP 8.9.1
+
+### v1.3.4 — 2026-06-08
+
+- **Fixed CI build failure (AGP 8.9.1 + Built-in Kotlin)** — upgraded AGP from 8.7.3 to 8.9.1 to satisfy transitive AndroidX dependencies (`activity:1.12.4`, `core:1.17.0`). Migrated to Flutter's Built-in Kotlin by removing the explicit `kotlin-android` plugin and `kotlinOptions` block; Flutter now manages Kotlin compilation internally, eliminating the KGP version warnings
+
+### v1.3.3 — 2026-06-08
+
+- **Fixed CI build failure (AGP / Gradle toolchain upgrade)** — upgraded Android Gradle Plugin from 8.3.2 to 8.7.3, Gradle wrapper from 8.4 to 8.9, Kotlin Gradle plugin from 1.9.24 to 2.0.21, and JDK in CI from 17 to 21. The previous pinning was too old for the Flutter composite build which brings AGP 9+ onto the classpath, causing the Flutter Gradle plugin to refuse the build. Removed the `resolutionStrategy.force()` workarounds that were only needed to stay on AGP 8.3.2
+
+### v1.3.2 — 2026-06-08
+
+- **Fixed CI build failure** — pinned Flutter to 3.44.1 in the release workflow and added `android.newDsl=false` to opt out of the AGP 9+ DSL mode that broke the Flutter Gradle plugin on newer stable releases
+
+### v1.3.1 — 2026-06-08
+
+Bug fixes and stability improvements identified by a full code review:
+
+- **Fixed partial block status** — when some devices in a group were blocked and others were not, the group card showed "unknown" instead of "partial"; the correct "Partial" status chip is now displayed
+- **Fixed description cannot be cleared** — editing a group and removing the description text had no effect; the description is now correctly cleared when the field is left empty
+- **Fixed UniFi v2 group API errors** — if a v2 endpoint returned a 401/403 during the controller probe, an unhandled exception caused group sync to fail entirely; the probe now falls through gracefully to the next candidate path and to the v1 fallback
+- **Fixed wrong REST paths for v2 group create/delete** — the path used for create and delete operations had a trailing character stripped, producing invalid API URLs; the correct collection path is now used for both operations
+- **Fixed group edits failing when offline** — renaming or editing a group that is linked to UniFi would throw and skip the local save when the controller was unreachable; local changes now always persist regardless of the UniFi sync result
+- **Fixed `wlan_filter_sheet` compile error** — `addGroupToWlanWhitelist` was called but never existed; the sheet now correctly merges group MACs into the WLAN filter using the repository directly
+- **Fixed image picker `mounted` check** — `setState` after picking a group image had no `mounted` guard; this could crash if the dialog was closed while the image picker was open
+- **Removed blocking I/O from `build()`** — `File.existsSync()` was called synchronously in every `GroupCard` rebuild; replaced with `Image.file` + `errorBuilder` which handles missing files without blocking the UI thread
+- **Fixed MAC normalisation in WLAN filter sheet** — manually added MACs used `toLowerCase()` instead of `MacAddressUtils.normalise()`, which could store dash-separated MACs inconsistently
+- **Fixed cross-midnight schedule overflow** — schedule entries spanning midnight would map slots past 23:59 back to 00:xx on the same day; iteration is now capped at the end of the day
+- **Cached site detection** — the site-listing API call made on every group refresh is now cached per session, reducing redundant network requests
+- **Replaced deprecated `withOpacity`** — all colour opacity uses updated to `withValues(alpha:)` to avoid precision loss
+- **Removed unused `_slotIndex` function** from `wlan_schedule_page.dart`
+
 ### v1.3.0 — 2026-03-25
 
 - **WLAN blackout schedule** — new clock icon in the dashboard toolbar opens a dedicated schedule page. Select any WLAN and draw blackout windows on a 7-day × 24-hour grid with 30-minute granularity. Red cells mark hours when the WLAN is automatically disabled. Tap a day label to toggle an entire day; tap an hour header to toggle that hour across all days. The schedule is saved to the UniFi controller via the `schedule_with_duration` API and is fully independent from the MAC filter page
