@@ -74,6 +74,15 @@ Group devices by child or category, then block or unblock their internet access 
 
 ## Releases
 
+### v1.3.7 — 2026-08-16
+
+**Fixed: Group sync not working when "Save to UniFi Client Group" is enabled**
+
+- **Replaced silent error swallowing with user feedback** — when creating a group, errors from the UniFi controller are now displayed to the user instead of being silently ignored; this helps diagnose connection, authentication, or permission issues
+- **Improved v2 API detection** — empty group lists (no groups exist yet) are now properly handled so v2 endpoints are used even on fresh installs
+- **Automatic v2-to-v1 fallback** — if v2 API group creation fails, the app automatically falls back to the v1 API for compatibility with older controller versions
+- **Clear error messages** — users now see exactly why group sync failed (network error, auth error, permission denied, etc.)
+
 ### v1.3.6 — 2026-06-08
 
 - **Fixed CI build failure (JVM target mismatch + toolchain upgrades)** — upgraded AGP from 8.9.1 to 8.11.1, Gradle wrapper from 8.11.1 to 8.14.1, and aligned Java compiler target to VERSION_21 to match Flutter's Built-in Kotlin JVM target when running on JDK 21
