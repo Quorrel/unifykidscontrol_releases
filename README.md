@@ -74,6 +74,12 @@ Group devices by child or category, then block or unblock their internet access 
 
 ## Releases
 
+### v1.3.9 — 2026-08-16
+
+**Fixed: Build error in release mode (`kDebugMode` not defined)**
+
+- **Removed `kDebugMode` check** — the conditional debug logging that caused release build failures has been replaced with unconditional `print()` statements, which Flutter automatically strips in release builds anyway
+
 ### v1.3.7 — 2026-08-16
 
 **Fixed: Group sync not working when "Save to UniFi Client Group" is enabled**
