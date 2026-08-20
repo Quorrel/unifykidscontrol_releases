@@ -74,6 +74,14 @@ Group devices by child or category, then block or unblock their internet access 
 
 ## Releases
 
+### v1.3.10 — 2026-08-16
+
+**Fixed: Cannot create device groups on the UniFi network and black screen on local group creation**
+
+- **Fixed v2 API path selection** — the app now correctly probes only valid v2 endpoints (`/groups` and `/profiles/client`) instead of incorrectly selecting `/network-members-groups`, which is not a valid group creation endpoint. This ensures group sync works on both newer and older UniFi controllers
+- **Fixed black screen on local group creation** — when creating a local group (without the "Save to UniFi" checkbox), the dialog now properly awaits the async group creation before closing. This prevents a double-pop scenario with a stale context that could cause a crash or black screen
+- **Improved error handling** — all async operations in the group creation dialog are now properly awaited and exceptions are caught, ensuring the UI remains responsive and errors are displayed to the user
+
 ### v1.3.9 — 2026-08-16
 
 **Fixed: Build error in release mode (`kDebugMode` not defined)**
