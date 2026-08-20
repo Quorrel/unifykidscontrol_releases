@@ -74,6 +74,12 @@ Group devices by child or category, then block or unblock their internet access 
 
 ## Releases
 
+### v1.4.0 — 2026-08-16
+
+**Fix: Cannot see existing device groups**
+
+- **Fixed groups not loading on app startup** — the groups list was being loaded asynchronously during initialization, but the app returned an empty list immediately before the async operation completed. This caused the dashboard to show no groups even when groups existed in local storage. The fix implements a synchronous loading path for initial app startup, ensuring existing groups are displayed immediately on first load.
+
 ### v1.3.10 — 2026-08-16
 
 **Fixed: Cannot create device groups on the UniFi network and black screen on local group creation**
